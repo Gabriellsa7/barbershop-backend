@@ -40,28 +40,6 @@ This is the **backend for a barbershop appointment application**, built with **N
 
 ---
 
-## ⚙️ Project Structure
-
-src/
-├── modules/
-│ ├── users/
-│ │ ├── controllers/
-│ │ ├── services/
-│ │ ├── repositories/
-│ │ └── routes.ts
-│ ├── barbershops/
-│ ├── appointments/
-│ └── ... other modules
-├── config/
-│ ├── prisma.ts
-│ └── cors.ts
-├── routes/
-│ └── index.ts
-├── app.ts
-└── server.ts
-
----
-
 ## 🔧 Installation
 
 1. Clone the repository:
@@ -80,8 +58,11 @@ npm install
 ```
 
 3. Set up your environment variables in .env:
-   DATABASE_URL="mysql://USER:PASSWORD@localhost:3306/barbershop_db"
-   PORT=3000
+
+```bash
+DATABASE_URL="mysql://USER:PASSWORD@localhost:3306/barbershop_db" PORT=3000
+
+```
 
 4. Initialize Prisma:
 
@@ -100,6 +81,8 @@ npm run dev
 
 The backend should now be running at: http://localhost:3000
 
+---
+
 ## 🛠️ Scripts
 
 ```json
@@ -112,6 +95,8 @@ The backend should now be running at: http://localhost:3000
 }
 
 ```
+
+---
 
 ## 🔗 Dependencies
 
@@ -129,17 +114,23 @@ npm install -D typescript ts-node-dev @types/node @types/express @types/cors pri
 
 ```
 
+---
+
 ## 📌 Notes
 
 User Roles: Users start as CLIENT. Admins are determined automatically when a user creates a barbershop (ownerId).
 UUID: All IDs are UUIDs for security and scalability.
 CORS: Configured to work with React Native, web front-end, and multiple domains.
 
+---
+
 ## Future Features
 
 Online payment integration (Stripe, PayPal, Pix).
 More detailed chat functionality (real-time messaging).
 Multi-barber scheduling and availability.
+
+---
 
 ## 📫 License
 
