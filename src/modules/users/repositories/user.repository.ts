@@ -17,4 +17,8 @@ export const userRepository = {
   findAll: () => {
     return prisma.user.findMany();
   },
+
+  delete: (id: string) => {
+    return prisma.user.delete({ where: { id } });
+  },
 };
