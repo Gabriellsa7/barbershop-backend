@@ -1,0 +1,179 @@
+// schema.prisma
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+enum Role {
+  CLIENT
+  BARBER
+}
+
+enum AppointmentStatus {
+  PENDING
+  CONFIRMED
+  CANCELLED
+  DONE
+}
+
+enum PaymentStatus {
+  PENDING
+  PAID
+  FAILED
+}
+
+model User {
+  id            String         @id @default(uuid())
+  name          String
+  email         String         @unique
+  passwordHash  String
+  phone         String?
+  role          Role
+  createdAt     DateTime       @default(now())
+  updatedAt     DateTime       @updatedAt
+
+  // Relations
+  barbershops   Barbershop[]   @relation("BarberBarbershops")
+  appointments  Appointment[]  @relation("ClientAppointments")
+  sentMessages  ChatMessage[]  @relation("SentMessages")
+  receivedMessages ChatMessage[] @relation("ReceivedMessages")
+  reviews       Review[]
+  notifications Notification[]
+}
+
+model Barbershop {
+  id            String        @id @default(uuid())
+  name          String
+  description   String?
+  address       String
+  latitude      Float
+  longitude     Float
+  createdAt     DateTime      @default(now())
+  updatedAt     DateTime      @updatedAt
+
+  // Relations
+  ownerId       String
+  owner         User          @relation("BarberBarbershops", fields: [ownerId], references: [id])
+  openingHours  OpeningHours[]
+  closedDays    ClosedDay[]
+  services      Service[]
+  appointments  Appointment[]
+  reviews       Review[]
+}
+
+model OpeningHours {
+  id           String     @id @default(uuid())
+  dayOfWeek    Int        // 0 = domingo … 6 = sábado
+  openTime     String
+  closeTime    String
+  lunchStart   String?
+  lunchEnd     String?
+
+  barbershopId String
+  barbershop   Barbershop @relation(fields: [barbershopId], references: [id])
+}
+
+model ClosedDay {
+  id           String     @id @default(uuid())
+  date         DateTime
+  reason       String?
+
+  barbershopId String
+  barbershop   Barbershop @relation(fields: [barbershopId], references: [id])
+}
+
+model Service {
+  id           String     @id @default(uuid())
+  name         String
+  description  String?
+  price        Float
+  durationMinutes Int
+
+  barbershopId String
+  barbershop   Barbershop @relation(fields: [barbershopId], references: [id])
+
+  appointments AppointmentService[]
+}
+
+model Appointment {
+  id           String     @id @default(uuid())
+  date         DateTime
+  startTime    String
+  endTime      String
+  status       AppointmentStatus @default(PENDING)
+  createdAt    DateTime   @default(now())
+
+  // Relations
+  clientId     String
+  client       User       @relation("ClientAppointments", fields: [clientId], references: [id])
+
+  barbershopId String
+  barbershop   Barbershop @relation(fields: [barbershopId], references: [id])
+
+  services     AppointmentService[]
+  payment      Payment?
+}
+
+model AppointmentService {
+  appointmentId String
+  serviceId     String
+
+  appointment   Appointment @relation(fields: [appointmentId], references: [id])
+  service       Service     @relation(fields: [serviceId], references: [id])
+
+  @@id([appointmentId, serviceId])
+}
+
+model ChatMessage {
+  id         String   @id @default(uuid())
+  message    String
+  timestamp  DateTime @default(now())
+  readAt     DateTime?
+
+  senderId   String
+  receiverId String
+
+  sender     User @relation("SentMessages", fields: [senderId], references: [id])
+  receiver   User @relation("ReceivedMessages", fields: [receiverId], references: [id])
+}
+
+model Payment {
+  id            String    @id @default(uuid())
+  amount        Float
+  status        PaymentStatus @default(PENDING)
+  method        String       // "CREDIT_CARD", "PIX", "CASH" etc
+  transactionId String?      // se tiver integração externa
+  createdAt     DateTime @default(now())
+
+  appointmentId String  @unique
+  appointment   Appointment @relation(fields: [appointmentId], references: [id])
+}
+
+model Review {
+  id           String    @id @default(uuid())
+  rating       Int       // 1-5 estrelas
+  comment      String?
+  createdAt    DateTime  @default(now())
+
+  clientId     String
+  client       User @relation(fields: [clientId], references: [id])
+
+  barbershopId String
+  barbershop   Barbershop @relation(fields: [barbershopId], references: [id])
+}
+
+model Notification {
+  id         String   @id @default(uuid())
+  message    String
+  type       String   // "REMINDER", "CONFIRMATION", "CANCELLATION"
+  createdAt  DateTime @default(now())
+  readAt     DateTime?
+
+  userId     String
+  user       User @relation(fields: [userId], references: [id])
+}
