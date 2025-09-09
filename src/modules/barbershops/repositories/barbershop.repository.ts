@@ -5,8 +5,8 @@ export const barbershopRepository = {
     name: string;
     description?: string;
     address: string;
-    latitude?: number;
-    longitude?: number;
+    latitude: number;
+    longitude: number;
     ownerId: string;
   }) => {
     return prisma.barbershop.create({ data });
@@ -16,8 +16,8 @@ export const barbershopRepository = {
     const kmToDegree = 0.009; // ~1km em graus
     return prisma.barbershop.findMany({
       where: {
-        latitude: { not: null },
-        longitude: { not: null },
+        latitude: { not: undefined },
+        longitude: { not: undefined },
         AND: [
           {
             latitude: {
