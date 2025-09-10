@@ -79,4 +79,8 @@ export const barbershopRepository = {
       where: { id },
     });
   },
+
+  getAll: async () => {
+    return prisma.barbershop.findMany();
+  },
 };
