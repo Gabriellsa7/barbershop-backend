@@ -1,7 +1,7 @@
 import { prisma } from "../../../config/prisma";
 
 export const barbershopRepository = {
-  create: (data: {
+  create: async (data: {
     name: string;
     description?: string;
     address: string;
