@@ -1,10 +1,12 @@
 import { Router } from "express";
 import { createBarbershopController } from "./controllers/create-barbershop.controller";
 import { getAllBarbershopController } from "./controllers/get-all-barbershop.controller";
+import { findBarbershopByOwnerContorller } from "./controllers/find-barbershop-by-owner.controller";
 
 const router = Router();
 
 router.post("/barbershop", createBarbershopController);
 router.get("/barbershop", getAllBarbershopController);
+router.get("/barbershop/owner/:id", findBarbershopByOwnerContorller);
 
 export default router;
