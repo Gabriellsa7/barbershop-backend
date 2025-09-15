@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import { findBarbershopByOwnerService } from "../services/find-barbershop-by-owner.service";
 
-export const findBarbershopByOwnerContorller = async (
+export const findBarbershopByOwnerController = async (
   req: Request,
   res: Response
 ) => {
