@@ -13,27 +13,21 @@ export const barbershopRepository = {
   },
 
   findNearby: async (lat: number, lng: number, radiusKm: number = 5) => {
-    const kmToDegree = 0.009; // ~1km em graus
-    return prisma.barbershop.findMany({
-      where: {
-        latitude: { not: undefined },
-        longitude: { not: undefined },
-        AND: [
-          {
-            latitude: {
-              gte: lat - radiusKm * kmToDegree,
-              lte: lat + radiusKm * kmToDegree,
-            },
-          },
-          {
-            longitude: {
-              gte: lng - radiusKm * kmToDegree,
-              lte: lng + radiusKm * kmToDegree,
-            },
-          },
-        ],
-      },
-    });
+    return prisma.$queryRawUnsafe(
+      `
+      SELECT 
+        b.*,
+        (6371 * acos(
+          cos(radians(${lat})) * cos(radians(b.latitude)) *
+          cos(radians(b.longitude) - radians(${lng})) +
+          sin(radians(${lat})) * sin(radians(b.latitude))
+        )) AS distance
+      FROM barbershop b
+      WHERE b.latitude IS NOT NULL AND b.longitude IS NOT NULL
+      HAVING distance <= ${radiusKm}
+      ORDER BY distance ASC
+      `
+    );
   },
 
   findById: async (id: string) => {
