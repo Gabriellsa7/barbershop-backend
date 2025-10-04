@@ -1,7 +1,12 @@
 import cors, { CorsOptions } from "cors";
 
 const allowedOrigins = [
-  "http://localhost:19006", // Expo / React Native dev
+  "http://10.1.73.233:8081", // Expo / React Native dev
+  "exp://10.1.73.233:8081",
+  "http://10.1.73.233:3000",
+  "http://localhost:8081",
+  "http://192.168.56.1:3000",
+  "http://0.0.0.0:3000",
   "http://localhost:3000", // front web dev
   "https://meuapp.com", // build web
 ];
