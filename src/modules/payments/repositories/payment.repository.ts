@@ -1,6 +1,6 @@
 // src/modules/payments/repositories/payment.repository.ts
 import { prisma } from "../../../config/prisma";
-import { PaymentStatus } from "@prisma/client";
+import { payment_status } from "@prisma/client";
 
 export const paymentRepository = {
   create: (data: { amount: number; method: string; appointmentId: string }) => {
@@ -11,7 +11,7 @@ export const paymentRepository = {
     return prisma.payment.findUnique({ where: { appointmentId } });
   },
 
-  updateStatus: (id: string, status: PaymentStatus) => {
+  updateStatus: (id: string, status: payment_status) => {
     return prisma.payment.update({ where: { id }, data: { status } });
   },
 };

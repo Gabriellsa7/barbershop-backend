@@ -1,6 +1,6 @@
 // src/modules/appointments/repositories/appointment.repository.ts
 import { prisma } from "../../../config/prisma";
-import { AppointmentStatus } from "@prisma/client";
+import { appointment_status } from "@prisma/client";
 
 export const appointmentRepository = {
   create: (data: {
@@ -16,25 +16,25 @@ export const appointmentRepository = {
   findById: (id: string) => {
     return prisma.appointment.findUnique({
       where: { id },
-      include: { services: true, payment: true },
+      include: { appointmentservice: true, payment: true },
     });
   },
 
   listByUser: (clientId: string) => {
     return prisma.appointment.findMany({
       where: { clientId },
-      include: { barbershop: true, services: true },
+      include: { barbershop: true, appointmentservice: true },
     });
   },
 
   listByBarbershop: (barbershopId: string) => {
     return prisma.appointment.findMany({
       where: { barbershopId },
-      include: { client: true, services: true },
+      include: { user: true, appointmentservice: true },
     });
   },
 
-  updateStatus: (id: string, status: AppointmentStatus) => {
+  updateStatus: (id: string, status: appointment_status) => {
     return prisma.appointment.update({
       where: { id },
       data: { status },

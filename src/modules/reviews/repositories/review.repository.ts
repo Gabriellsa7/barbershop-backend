@@ -14,7 +14,7 @@ export const reviewRepository = {
   listByBarbershop: (barbershopId: string) => {
     return prisma.review.findMany({
       where: { barbershopId },
-      include: { client: true },
+      include: { user: true },
     });
   },
 };
