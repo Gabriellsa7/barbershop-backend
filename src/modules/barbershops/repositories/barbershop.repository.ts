@@ -8,6 +8,7 @@ export const barbershopRepository = {
     latitude: number;
     longitude: number;
     ownerId: string;
+    image_url?: string;
   }) => {
     return prisma.barbershop.create({ data });
   },
@@ -34,10 +35,10 @@ export const barbershopRepository = {
     return prisma.barbershop.findUnique({
       where: { id },
       include: {
-        owner: true,
-        services: true,
-        openingHours: true,
-        closedDays: true,
+        user: true,
+        service: true,
+        openinghours: true,
+        closedday: true,
       },
     });
   },
@@ -46,8 +47,8 @@ export const barbershopRepository = {
     return prisma.barbershop.findMany({
       where: { ownerId },
       include: {
-        services: true,
-        appointments: true,
+        service: true,
+        appointment: true,
       },
     });
   },
@@ -60,6 +61,7 @@ export const barbershopRepository = {
       address?: string;
       latitude?: number;
       longitude?: number;
+      image_url?: string;
     }
   ) => {
     return prisma.barbershop.update({

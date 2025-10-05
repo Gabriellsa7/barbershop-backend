@@ -6,6 +6,7 @@ type UpdateBarbershopDTO = {
   address?: string;
   latitude?: number;
   longitude?: number;
+  image_url?: string;
 };
 
 export const updateBarbershopService = async (

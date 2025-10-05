@@ -8,7 +8,7 @@ datasource db {
 }
 
 model appointment {
-  id                 String               @id
+  id                 String               @id @default(uuid())
   date               DateTime
   startTime          String
   endTime            String
@@ -36,15 +36,17 @@ model appointmentservice {
 }
 
 model barbershop {
-  id           String         @id
+  id           String         @id @default(uuid())
   name         String
   description  String?
   address      String
   latitude     Float
   longitude    Float
   createdAt    DateTime       @default(now())
-  updatedAt    DateTime
+  updatedAt    DateTime       @updatedAt
   ownerId      String
+  image_url    String?
+
   appointment  appointment[]
   user         user           @relation(fields: [ownerId], references: [id], map: "Barbershop_ownerId_fkey")
   closedday    closedday[]
@@ -56,7 +58,7 @@ model barbershop {
 }
 
 model chatmessage {
-  id                                String    @id
+  id                                String    @id @default(uuid())
   message                           String
   timestamp                         DateTime  @default(now())
   readAt                            DateTime?
@@ -70,7 +72,7 @@ model chatmessage {
 }
 
 model closedday {
-  id           String     @id
+  id           String     @id @default(uuid())
   date         DateTime
   reason       String?
   barbershopId String
@@ -80,7 +82,7 @@ model closedday {
 }
 
 model notification {
-  id        String    @id
+  id        String    @id @default(uuid())
   message   String
   type      String
   createdAt DateTime  @default(now())
@@ -92,7 +94,7 @@ model notification {
 }
 
 model openinghours {
-  id           String     @id
+  id           String     @id @default(uuid())
   dayOfWeek    Int
   openTime     String
   closeTime    String
@@ -105,7 +107,7 @@ model openinghours {
 }
 
 model payment {
-  id            String         @id
+  id            String         @id @default(uuid())
   amount        Float
   status        payment_status @default(PENDING)
   method        String
@@ -116,7 +118,7 @@ model payment {
 }
 
 model review {
-  id           String     @id
+  id           String     @id @default(uuid())
   rating       Int
   comment      String?
   createdAt    DateTime   @default(now())
@@ -130,7 +132,7 @@ model review {
 }
 
 model service {
-  id                 String               @id
+  id                 String               @id @default(uuid())
   name               String
   description        String?
   price              Float
@@ -143,7 +145,7 @@ model service {
 }
 
 model user {
-  id                                       String         @id
+  id                                       String         @id @default(uuid())
   name                                     String
   email                                    String         @unique(map: "User_email_key")
   passwordHash                             String
