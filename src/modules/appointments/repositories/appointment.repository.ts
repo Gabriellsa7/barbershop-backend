@@ -40,4 +40,18 @@ export const appointmentRepository = {
       data: { status },
     });
   },
+
+  async findConflict(barbershopId: string, date: Date, start: string, end: string) {
+    return prisma.appointment.findFirst({
+      where: {
+        barbershopId,
+        date,
+        OR: [
+          {
+            startTime: { lte: end },
+            endTime: { gte: start }
+          }
+        ]
+      }
+    })}
 };
