@@ -1,4 +1,3 @@
-// src/modules/reviews/repositories/review.repository.ts
 import { prisma } from "../../../config/prisma";
 
 export const reviewRepository = {

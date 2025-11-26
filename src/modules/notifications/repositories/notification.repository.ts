@@ -1,4 +1,3 @@
-// src/modules/notifications/repositories/notification.repository.ts
 import { prisma } from "../../../config/prisma";
 
 export const notificationRepository = {

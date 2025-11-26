@@ -1,4 +1,3 @@
-// src/modules/services/repositories/service.repository.ts
 import { prisma } from "../../../config/prisma";
 
 export const serviceRepository = {

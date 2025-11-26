@@ -1,4 +1,3 @@
-// src/modules/chats/repositories/chat.repository.ts
 import { prisma } from "../../../config/prisma";
 
 export const chatRepository = {
@@ -7,11 +6,11 @@ export const chatRepository = {
     receiverId: string;
     message: string;
   }) => {
-    return prisma.chatMessage.create({ data });
+    return prisma.chatmessage.create({ data });
   },
 
   listMessagesBetweenUsers: (userId1: string, userId2: string) => {
-    return prisma.chatMessage.findMany({
+    return prisma.chatmessage.findMany({
       where: {
         OR: [
           { senderId: userId1, receiverId: userId2 },

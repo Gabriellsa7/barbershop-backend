@@ -1,4 +1,3 @@
-// src/modules/payments/repositories/payment.repository.ts
 import { prisma } from "../../../config/prisma";
 import { payment_status } from "@prisma/client";
 
