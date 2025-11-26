@@ -1,10 +1,11 @@
 generator client {
   provider = "prisma-client-js"
+  engine = "library"
+  output = "../generated/prisma/client"
 }
 
 datasource db {
   provider = "mysql"
-  url      = env("DATABASE_URL")
 }
 
 model appointment {
