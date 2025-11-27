@@ -1,7 +1,6 @@
 generator client {
-  provider = "prisma-client-js"
-  engine = "library"
-  output = "../generated/prisma/client"
+  provider = "prisma-client"
+  output = "../generated/prisma"
 }
 
 datasource db {
@@ -47,7 +46,6 @@ model barbershop {
   updatedAt    DateTime       @updatedAt
   ownerId      String
   image_url    String?
-
   appointment  appointment[]
   user         user           @relation(fields: [ownerId], references: [id], map: "Barbershop_ownerId_fkey")
   closedday    closedday[]
