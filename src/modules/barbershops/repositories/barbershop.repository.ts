@@ -5,8 +5,8 @@ export const barbershopRepository = {
     name: string;
     description?: string;
     address: string;
-    latitude: number;
-    longitude: number;
+    latitude?: number;
+    longitude?: number;
     ownerId: string;
     image_url?: string;
   }) => {
