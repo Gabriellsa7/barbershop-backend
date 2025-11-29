@@ -1,4 +1,4 @@
-import { prisma } from "../../../config/prisma";
+import { prisma } from '../../../../lib/prisma';
 
 export const serviceRepository = {
   create: (data: {
@@ -12,10 +12,14 @@ export const serviceRepository = {
   },
 
   listByBarbershop: (barbershopId: string) => {
-    return prisma.service.findMany({ where: { barbershopId } });
+    return prisma.service.findMany({
+      where: { barbershopId },
+    });
   },
 
   delete: (id: string) => {
-    return prisma.service.delete({ where: { id } });
+    return prisma.service.delete({
+      where: { id },
+    });
   },
 };

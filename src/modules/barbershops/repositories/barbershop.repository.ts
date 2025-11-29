@@ -1,4 +1,4 @@
-import { prisma } from "../../../config/prisma";
+import { prisma } from '../../../../lib/prisma';
 
 export const barbershopRepository = {
   create: async (data: {
@@ -13,7 +13,11 @@ export const barbershopRepository = {
     return prisma.barbershop.create({ data });
   },
 
-  findNearby: async (lat: number, lng: number, radiusKm: number = 5) => {
+  findNearby: async (
+    lat: number,
+    lng: number,
+    radiusKm: number = 5,
+  ) => {
     return prisma.$queryRawUnsafe(
       `
       SELECT 
@@ -27,7 +31,7 @@ export const barbershopRepository = {
       WHERE b.latitude IS NOT NULL AND b.longitude IS NOT NULL
       HAVING distance <= ${radiusKm}
       ORDER BY distance ASC
-      `
+      `,
     );
   },
 
@@ -62,7 +66,7 @@ export const barbershopRepository = {
       latitude?: number;
       longitude?: number;
       image_url?: string;
-    }
+    },
   ) => {
     return prisma.barbershop.update({
       where: { id },

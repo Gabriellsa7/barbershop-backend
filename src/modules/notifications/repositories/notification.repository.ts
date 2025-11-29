@@ -1,12 +1,18 @@
-import { prisma } from "../../../config/prisma";
+import { prisma } from '../../../../lib/prisma';
 
 export const notificationRepository = {
-  create: (data: { message: string; type: string; userId: string }) => {
+  create: (data: {
+    message: string;
+    type: string;
+    userId: string;
+  }) => {
     return prisma.notification.create({ data });
   },
 
   listByUser: (userId: string) => {
-    return prisma.notification.findMany({ where: { userId } });
+    return prisma.notification.findMany({
+      where: { userId },
+    });
   },
 
   markAsRead: (id: string) => {

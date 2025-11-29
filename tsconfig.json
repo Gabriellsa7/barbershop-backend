@@ -10,8 +10,7 @@
     "skipLibCheck": true,
     "sourceMap": true,
     "declaration": true,
-    "declarationMap": true,
-    "types": ["node"]
+    "declarationMap": true
   },
   "include": ["src", "lib"],
   "exclude": ["node_modules", "dist"]
