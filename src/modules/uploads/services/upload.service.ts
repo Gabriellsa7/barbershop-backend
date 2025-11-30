@@ -3,7 +3,7 @@ export class UploadService {
     file: Express.Multer.File | undefined,
   ) {
     if (!file) {
-      throw new Error('Nenhuma imagem enviada');
+      throw new Error('No Image Sent');
     }
 
     return {
