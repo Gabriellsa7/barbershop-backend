@@ -29,4 +29,19 @@ export const userRepository = {
   delete: (id: string) => {
     return prisma.user.delete({ where: { id } });
   },
+
+  update: (
+    id: string,
+    data: Partial<{
+      name: string;
+      email: string;
+      image_url: string;
+      passwordHash: string;
+    }>,
+  ) => {
+    return prisma.user.update({
+      where: { id },
+      data,
+    });
+  },
 };
