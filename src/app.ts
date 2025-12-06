@@ -10,7 +10,7 @@ app.use(corsMiddleware);
 app.use(
   '/uploads',
   express.static(
-    path.join(__dirname, '..', 'uploads'),
+    path.join(__dirname, '../uploads'),
   ),
 );
 

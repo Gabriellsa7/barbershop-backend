@@ -1,5 +1,5 @@
-import { Request, Response } from "express";
-import { loginService } from "../services/login-user.service";
+import { Request, Response } from 'express';
+import { loginService } from '../services/login-user.service';
 
 export const loginController = {
   login: async (req: Request, res: Response) => {
@@ -9,17 +9,25 @@ export const loginController = {
       if (!email || !password) {
         return res
           .status(400)
-          .json({ message: "Email and Passowrd is Required" });
+          .json({
+            message:
+              'Email and Password are required',
+          });
       }
 
-      const user = await loginService.login(email, password);
+      const user = await loginService.login(
+        email,
+        password,
+      );
 
       return res.status(200).json({
-        message: "Login Successful",
+        message: 'Login Successful',
         user,
       });
     } catch (error: any) {
-      return res.status(401).json({ message: error.message });
+      return res
+        .status(401)
+        .json({ message: error.message });
     }
   },
 };
