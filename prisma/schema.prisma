@@ -135,6 +135,7 @@ model service {
   name               String
   description        String?
   price              Float
+  image_url         String?
   durationMinutes    Int
   barbershopId       String
   appointmentservice appointmentservice[]

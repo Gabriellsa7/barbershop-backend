@@ -7,6 +7,7 @@ export const serviceRepository = {
     price: number;
     durationMinutes: number;
     barbershopId: string;
+    image_url?: string;
   }) => {
     return prisma.service.create({ data });
   },
