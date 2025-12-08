@@ -4,12 +4,18 @@ export const userRepository = {
   findByEmail: (email: string) => {
     return prisma.user.findUnique({
       where: { email },
+      include: {
+        barbershop: true,
+      },
     });
   },
 
   findById: (id: string) => {
     return prisma.user.findUnique({
       where: { id },
+      include: {
+        barbershop: true,
+      },
     });
   },
 
