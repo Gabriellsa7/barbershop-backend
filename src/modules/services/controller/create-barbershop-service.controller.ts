@@ -6,7 +6,12 @@ export const createBarbershopServiceController =
     try {
       const data = req.body;
 
-      if (!data) {
+      if (
+        !data.name ||
+        !data.price ||
+        !data.durationMinutes ||
+        !data.barbershopId
+      ) {
         return res.status(400).json({
           error:
             'Name, price, durationMinutes, and barbershopId are required',
