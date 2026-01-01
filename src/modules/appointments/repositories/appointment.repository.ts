@@ -1,6 +1,6 @@
 // src/modules/appointments/repositories/appointment.repository.ts
 import { prisma } from '../../../../lib/prisma';
-import { appointment_status } from '@prisma/client';
+import { appointment_status } from '../../../../generated/prisma/client/enums';
 
 export const appointmentRepository = {
   create: (data: {
