@@ -14,7 +14,7 @@ router.post(
 //GET /appointments/availability?barbershopId=aea64e59-fc8c-497d-9d91-0689fe2eb733&date=2026-01-02
 
 router.get(
-  '/appointments/availability',
+  '/appointment/availability',
   listAvailabilityController,
 );
 
