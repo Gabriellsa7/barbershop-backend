@@ -13,6 +13,19 @@ export const appointmentRepository = {
     return prisma.appointment.create({ data });
   },
 
+  listByDate(barbershopId: string, date: Date) {
+    return prisma.appointment.findMany({
+      where: {
+        barbershopId,
+        date,
+      },
+      select: {
+        startTime: true,
+        endTime: true,
+      },
+    });
+  },
+
   findById: (id: string) => {
     return prisma.appointment.findUnique({
       where: { id },
