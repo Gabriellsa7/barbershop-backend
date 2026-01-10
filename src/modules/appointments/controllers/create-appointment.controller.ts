@@ -14,13 +14,17 @@ export const createAppointmentController = async (
       barbershopId,
     } = req.body;
 
+    const appointmentDate = new Date(
+      `${date}T12:00:00.000Z`,
+    );
+
     const appointment =
       await createAppointmentService({
         clientId,
         barbershopId,
         startTime,
         endTime,
-        date: new Date(`${date}T00:00:00.000Z`),
+        date: appointmentDate,
       });
 
     return res.status(201).json(appointment);
