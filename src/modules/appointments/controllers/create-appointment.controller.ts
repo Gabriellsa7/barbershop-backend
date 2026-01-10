@@ -6,16 +6,22 @@ export const createAppointmentController = async (
   res: Response,
 ) => {
   try {
-    const data = req.body;
+    const {
+      date,
+      startTime,
+      endTime,
+      clientId,
+      barbershopId,
+    } = req.body;
 
-    if (!data) {
-      return res.status(400).json({
-        error:
-          'Date, startTime, endTime, clientId, and barbershopId are required',
-      });
-    }
     const appointment =
-      await createAppointmentService(data);
+      await createAppointmentService({
+        clientId,
+        barbershopId,
+        startTime,
+        endTime,
+        date: new Date(`${date}T00:00:00.000Z`),
+      });
 
     return res.status(201).json(appointment);
   } catch (err: any) {
