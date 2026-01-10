@@ -1,6 +1,8 @@
 import { Router } from 'express';
 import { createAppointmentController } from './controllers/create-appointment.controller';
 import { listAvailabilityController } from './controllers/availability.controller';
+import { listAppointmentsByUserController } from './controllers/list-by-user.controller';
+import { ensureAuthenticated } from '../../middleware/ensure-authenticated';
 
 const router = Router();
 
@@ -16,6 +18,12 @@ router.post(
 router.get(
   '/appointment/availability',
   listAvailabilityController,
+);
+
+router.get(
+  '/appointment/me',
+  ensureAuthenticated,
+  listAppointmentsByUserController,
 );
 
 export default router;

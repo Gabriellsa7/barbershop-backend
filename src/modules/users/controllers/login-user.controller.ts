@@ -6,19 +6,19 @@ export const loginController = {
     try {
       const { email, password } = req.body;
 
-      if (!email || !password) {
-        return res
-          .status(400)
-          .json({
-            message:
-              'Email and Password are required',
-          });
-      }
-
       const user = await loginService.login(
         email,
         password,
       );
+
+      req.session.userId = user.id;
+
+      if (!email || !password) {
+        return res.status(400).json({
+          message:
+            'Email and Password are required',
+        });
+      }
 
       return res.status(200).json({
         message: 'Login Successful',
