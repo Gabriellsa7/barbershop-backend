@@ -12,6 +12,7 @@ export const createAppointmentController = async (
       endTime,
       clientId,
       barbershopId,
+      serviceIds,
     } = req.body;
 
     const appointmentDate = new Date(
@@ -25,6 +26,7 @@ export const createAppointmentController = async (
         startTime,
         endTime,
         date: appointmentDate,
+        serviceIds,
       });
 
     return res.status(201).json(appointment);

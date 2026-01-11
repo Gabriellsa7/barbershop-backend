@@ -9,8 +9,45 @@ export const appointmentRepository = {
     endTime: string;
     clientId: string;
     barbershopId: string;
+    serviceIds: string[];
   }) => {
-    return prisma.appointment.create({ data });
+    return prisma.appointment.create({
+      data: {
+        date: data.date,
+        startTime: data.startTime,
+        endTime: data.endTime,
+        clientId: data.clientId,
+        barbershopId: data.barbershopId,
+
+        appointmentservice: {
+          create: data.serviceIds.map(
+            (serviceId) => ({
+              serviceId,
+            }),
+          ),
+        },
+      },
+      include: {
+        barbershop: {
+          select: {
+            id: true,
+            name: true,
+          },
+        },
+        appointmentservice: {
+          include: {
+            service: {
+              select: {
+                id: true,
+                name: true,
+                price: true,
+                durationMinutes: true,
+              },
+            },
+          },
+        },
+      },
+    });
   },
 
   listByDate(barbershopId: string, date: Date) {
@@ -30,7 +67,24 @@ export const appointmentRepository = {
     return prisma.appointment.findUnique({
       where: { id },
       include: {
-        appointmentservice: true,
+        barbershop: {
+          select: {
+            id: true,
+            name: true,
+          },
+        },
+        appointmentservice: {
+          include: {
+            service: {
+              select: {
+                id: true,
+                name: true,
+                price: true,
+                durationMinutes: true,
+              },
+            },
+          },
+        },
         payment: true,
       },
     });
@@ -40,8 +94,24 @@ export const appointmentRepository = {
     return prisma.appointment.findMany({
       where: { clientId },
       include: {
-        barbershop: true,
-        appointmentservice: true,
+        barbershop: {
+          select: {
+            id: true,
+            name: true,
+          },
+        },
+        appointmentservice: {
+          include: {
+            service: {
+              select: {
+                id: true,
+                name: true,
+                price: true,
+                durationMinutes: true,
+              },
+            },
+          },
+        },
       },
     });
   },
@@ -50,8 +120,24 @@ export const appointmentRepository = {
     return prisma.appointment.findMany({
       where: { barbershopId },
       include: {
-        user: true,
-        appointmentservice: true,
+        user: {
+          select: {
+            id: true,
+            name: true,
+          },
+        },
+        appointmentservice: {
+          include: {
+            service: {
+              select: {
+                id: true,
+                name: true,
+                price: true,
+                durationMinutes: true,
+              },
+            },
+          },
+        },
       },
     });
   },

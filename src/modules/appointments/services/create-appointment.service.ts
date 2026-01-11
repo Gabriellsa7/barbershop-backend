@@ -6,6 +6,7 @@ type AppointmentCreateDataProps = {
   endTime: string;
   clientId: string;
   barbershopId: string;
+  serviceIds: string[];
 };
 
 export const createAppointmentService = async (
@@ -17,12 +18,17 @@ export const createAppointmentService = async (
     date,
     endTime,
     startTime,
+    serviceIds,
   } = data;
 
   if (!startTime || !endTime) {
     throw new Error(
       'Start and end time are required',
     );
+  }
+
+  if (!serviceIds || serviceIds.length === 0) {
+    throw new Error('serviceIds is required');
   }
 
   const conflict =
@@ -45,5 +51,6 @@ export const createAppointmentService = async (
     date,
     endTime,
     startTime,
+    serviceIds,
   });
 };
