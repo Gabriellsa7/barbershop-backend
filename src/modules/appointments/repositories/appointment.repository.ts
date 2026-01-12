@@ -32,6 +32,7 @@ export const appointmentRepository = {
           select: {
             id: true,
             name: true,
+            image_url: true,
           },
         },
         appointmentservice: {
@@ -72,6 +73,7 @@ export const appointmentRepository = {
           select: {
             id: true,
             name: true,
+            image_url: true,
           },
         },
         appointmentservice: {
@@ -100,6 +102,7 @@ export const appointmentRepository = {
           select: {
             id: true,
             name: true,
+            image_url: true,
           },
         },
         appointmentservice: {
