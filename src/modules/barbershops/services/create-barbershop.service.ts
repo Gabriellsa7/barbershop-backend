@@ -1,3 +1,4 @@
+import { AppError } from '../../../shared/errors/app-error';
 import { barbershopRepository } from '../repositories/barbershop.repository';
 
 type BarbershopCreateData = {
@@ -22,6 +23,22 @@ export const createBarbershopService = async (
     longitude,
     image_url,
   } = data;
+
+  if (!name?.trim()) {
+    throw new AppError('Name is required');
+  }
+
+  if (!description?.trim()) {
+    throw new AppError('Description is required');
+  }
+
+  if (!address?.trim()) {
+    throw new AppError('Address is required');
+  }
+
+  if (!ownerId) {
+    throw new AppError('Owner is required');
+  }
 
   return barbershopRepository.create({
     name,
