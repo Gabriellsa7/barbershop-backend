@@ -29,7 +29,6 @@ router.get(
 
 router.get(
   '/appointment/barbershop/:barbershopId',
-  ensureAuthenticated,
   getAppointmentByBarbershopController,
 );
 
