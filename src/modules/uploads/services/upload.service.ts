@@ -7,7 +7,7 @@ export class UploadService {
     }
 
     return {
-      url: `/uploads/${file.filename}`,
+      url: `${process.env.BASE_URL}/uploads/${file.filename}`,
     };
   }
 }
