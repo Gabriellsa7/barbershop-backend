@@ -3,6 +3,7 @@ import { createAppointmentController } from './controllers/create-appointment.co
 import { listAvailabilityController } from './controllers/availability.controller';
 import { listAppointmentsByUserController } from './controllers/list-by-user.controller';
 import { ensureAuthenticated } from '../../middleware/ensure-authenticated';
+import { getAppointmentByBarbershopController } from './controllers/get-appointment-by-barbershop.controller';
 
 const router = Router();
 
@@ -24,6 +25,12 @@ router.get(
   '/appointment/me',
   ensureAuthenticated,
   listAppointmentsByUserController,
+);
+
+router.get(
+  '/appointment/barbershop/:barbershopId',
+  ensureAuthenticated,
+  getAppointmentByBarbershopController,
 );
 
 export default router;
