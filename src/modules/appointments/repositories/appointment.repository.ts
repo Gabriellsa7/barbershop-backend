@@ -126,6 +126,13 @@ export const appointmentRepository = {
     return prisma.appointment.findMany({
       where: { barbershopId },
       include: {
+        barbershop: {
+          select: {
+            id: true,
+            name: true,
+            image_url: true,
+          },
+        },
         user: {
           select: {
             id: true,
