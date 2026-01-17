@@ -6,7 +6,7 @@ const allowedOrigins = [
   'http://10.1.73.233:3000',
   'http://localhost:8081',
   'http://192.168.56.1:3000',
-  'http://192.168.0.17:3000',
+  'http://192.168.0.19:3000',
   'http://0.0.0.0:3000',
   'http://localhost:3000', // front web dev
   'https://meuapp.com', // build web

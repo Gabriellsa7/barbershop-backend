@@ -96,7 +96,9 @@ export const appointmentRepository = {
 
   listByUser: (clientId: string) => {
     return prisma.appointment.findMany({
-      where: { clientId },
+      where: {
+        clientId,
+      },
       include: {
         barbershop: {
           select: {
@@ -118,6 +120,9 @@ export const appointmentRepository = {
             },
           },
         },
+      },
+      orderBy: {
+        date: 'desc',
       },
     });
   },

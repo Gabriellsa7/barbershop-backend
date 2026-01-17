@@ -6,13 +6,7 @@ export const loginController = {
     try {
       const { email, password } = req.body;
 
-      const user = await loginService.login(
-        email,
-        password,
-      );
-
-      req.session.userId = user.id;
-
+      // ✅ valida primeiro
       if (!email || !password) {
         return res.status(400).json({
           message:
@@ -20,14 +14,29 @@ export const loginController = {
         });
       }
 
-      return res.status(200).json({
-        message: 'Login Successful',
-        user,
+      const user = await loginService.login(
+        email,
+        password,
+      );
+
+      // ✅ cria sessão
+      req.session.userId = user.id;
+
+      // ✅ força persistência da sessão (CRÍTICO)
+      req.session.save(() => {
+        return res.status(200).json({
+          message: 'Login Successful',
+          user: {
+            id: user.id,
+            name: user.name,
+            email: user.email,
+          },
+        });
       });
     } catch (error: any) {
-      return res
-        .status(401)
-        .json({ message: error.message });
+      return res.status(401).json({
+        message: error.message,
+      });
     }
   },
 };

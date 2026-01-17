@@ -28,8 +28,7 @@ router.get(
 );
 
 router.get(
-  '/appointment/me',
-  ensureAuthenticated,
+  '/appointment/user/:userId',
   listAppointmentsByUserController,
 );
 

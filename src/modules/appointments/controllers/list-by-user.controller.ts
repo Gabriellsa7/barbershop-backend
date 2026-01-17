@@ -4,11 +4,11 @@ import { listAppointmentsByUserService } from '../services/list-by-user.service'
 export const listAppointmentsByUserController =
   async (req: Request, res: Response) => {
     try {
-      const userId = req.session.userId;
+      const { userId } = req.params;
 
       if (!userId) {
-        return res.status(401).json({
-          error: 'User not authenticated',
+        return res.status(400).json({
+          error: 'User ID is required',
         });
       }
 
@@ -17,10 +17,10 @@ export const listAppointmentsByUserController =
           userId,
         );
 
-      return res.json(appointments);
-    } catch (err: any) {
-      return res
-        .status(400)
-        .json({ error: err.message });
+      return res.status(200).json(appointments);
+    } catch (error: any) {
+      return res.status(400).json({
+        error: error.message,
+      });
     }
   };

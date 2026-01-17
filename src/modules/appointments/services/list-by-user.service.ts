@@ -6,7 +6,7 @@ export const listAppointmentsByUserService =
       throw new Error('User ID is required');
     }
 
-    return await appointmentRepository.listByUser(
+    return appointmentRepository.listByUser(
       userId,
     );
   };
