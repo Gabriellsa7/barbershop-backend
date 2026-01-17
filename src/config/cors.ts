@@ -24,7 +24,14 @@ const corsOptions: CorsOptions = {
       );
     }
   },
-  methods: ['GET', 'POST', 'PUT', 'DELETE'],
+  methods: [
+    'GET',
+    'POST',
+    'PUT',
+    'DELETE',
+    'PATCH',
+    'OPTIONS',
+  ],
   credentials: true,
 };
 

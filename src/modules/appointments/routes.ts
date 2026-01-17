@@ -5,6 +5,7 @@ import { listAppointmentsByUserController } from './controllers/list-by-user.con
 import { ensureAuthenticated } from '../../middleware/ensure-authenticated';
 import { getAppointmentByBarbershopController } from './controllers/get-appointment-by-barbershop.controller';
 import { getAppointmentByIdController } from './controllers/get-appointment-by-id.controller';
+import { updateAppointmentStatusController } from './controllers/update-status.controller';
 
 const router = Router();
 
@@ -35,6 +36,11 @@ router.get(
 router.get(
   '/appointment/barbershop/:barbershopId',
   getAppointmentByBarbershopController,
+);
+
+router.patch(
+  '/appointment/:id/status',
+  updateAppointmentStatusController,
 );
 
 export default router;
