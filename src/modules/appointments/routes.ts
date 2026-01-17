@@ -4,12 +4,18 @@ import { listAvailabilityController } from './controllers/availability.controlle
 import { listAppointmentsByUserController } from './controllers/list-by-user.controller';
 import { ensureAuthenticated } from '../../middleware/ensure-authenticated';
 import { getAppointmentByBarbershopController } from './controllers/get-appointment-by-barbershop.controller';
+import { getAppointmentByIdController } from './controllers/get-appointment-by-id.controller';
 
 const router = Router();
 
 router.post(
   '/appointment',
   createAppointmentController,
+);
+
+router.get(
+  '/appointment/:id',
+  getAppointmentByIdController,
 );
 
 //Insomina Test Exemple
