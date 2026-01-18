@@ -5,8 +5,6 @@ export const loginController = {
   login: async (req: Request, res: Response) => {
     try {
       const { email, password } = req.body;
-
-      // ✅ valida primeiro
       if (!email || !password) {
         return res.status(400).json({
           message:
@@ -19,10 +17,8 @@ export const loginController = {
         password,
       );
 
-      // ✅ cria sessão
       req.session.userId = user.id;
 
-      // ✅ força persistência da sessão (CRÍTICO)
       req.session.save(() => {
         return res.status(200).json({
           message: 'Login Successful',
@@ -30,6 +26,8 @@ export const loginController = {
             id: user.id,
             name: user.name,
             email: user.email,
+            image_url: user.image_url,
+            barbershopId: user.barbershopId || [],
           },
         });
       });

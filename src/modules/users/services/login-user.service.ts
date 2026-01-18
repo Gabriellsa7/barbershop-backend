@@ -26,7 +26,7 @@ export const loginService = {
       id: user.id,
       name: user.name,
       email: user.email,
-      imageUrl: user.image_url ?? null,
+      image_url: user.image_url ?? null,
       barbershopId: user.barbershop.map(
         (b) => b.id,
       ),
