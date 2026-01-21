@@ -5,15 +5,19 @@ import {
 } from 'express';
 
 export function ensureAuthenticated(
-  req: Request,
+  req: Request & { user?: { id: string } },
   res: Response,
   next: NextFunction,
 ) {
   if (!req.session.userId) {
     return res.status(401).json({
-      error: 'User not authenticated',
+      message: 'User not authenticated',
     });
   }
+
+  req.user = {
+    id: req.session.userId,
+  };
 
   next();
 }
