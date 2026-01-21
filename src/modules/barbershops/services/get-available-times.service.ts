@@ -45,9 +45,9 @@ export const getAvailableTimesService = async ({
     year,
     month - 1,
     day,
-  ).getDay(); // 0–6 (local, sem UTC)
+  ).getDay(); // 0–6 (local, Without UTC)
 
-  const dayOfWeek = jsDay === 0 ? 7 : jsDay; // 1–7 (padrão do banco)
+  const dayOfWeek = jsDay === 0 ? 7 : jsDay; // 1–7 (Bd pattern)
 
   const opening = barbershop.openinghours.find(
     (o) => o.dayOfWeek === dayOfWeek,
