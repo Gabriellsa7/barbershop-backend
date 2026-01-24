@@ -7,8 +7,11 @@ const allowedOrigins = [
   'http://localhost:8081',
   'http://192.168.56.1:3000',
   'http://192.168.0.19:3000',
-  'http://0.0.0.0:3000',
+  'http://0.0.0.0:3000/api',
+  'http://192.168.0.14:3000',
+  'http://192.168.0.14:3000/api',
   'http://localhost:3000', // front web dev
+  'http://localhost:3000/api',
   'https://meuapp.com', // build web
 ];
 
