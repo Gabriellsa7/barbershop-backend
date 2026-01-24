@@ -6,6 +6,10 @@ import { findBarbershopByIdController } from './controllers/find-barbershop-by-i
 import { deleteBarbershopController } from './controllers/delete-barbershop.controller';
 import { updateBarbershopController } from './controllers/update-barbershop.controller';
 import { findBarbershopNearbyController } from './controllers/find-barbershop-nearby.controller';
+import { getAvailableTimesController } from './controllers/get-available-times.controller';
+import { ensureAuthenticated } from '../../middleware/ensure-authenticated';
+import { isBarbershopOwner } from '../../middleware/ensureBarbershopOwner';
+import { setOpeningHoursController } from './controllers/set-opening-hour.controller';
 
 const router = Router();
 
@@ -13,6 +17,13 @@ router.post(
   '/barbershop',
   createBarbershopController,
 );
+router.post(
+  '/barbershop/:id/opening-hours',
+  ensureAuthenticated,
+  isBarbershopOwner,
+  setOpeningHoursController,
+);
+
 router.get(
   '/barbershop',
   getAllBarbershopController,
@@ -36,6 +47,10 @@ router.put(
 router.get(
   '/nearby',
   findBarbershopNearbyController,
+);
+router.get(
+  '/barbershop/:barbershopId/available-times',
+  getAvailableTimesController,
 );
 
 export default router;

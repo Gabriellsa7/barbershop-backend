@@ -1,4 +1,5 @@
 import { prisma } from '../../../../lib/prisma';
+import { OpeningHourInput } from '../dtos/opening-hour.input';
 
 export const barbershopRepository = {
   create: async (data: {
@@ -82,5 +83,62 @@ export const barbershopRepository = {
 
   getAll: async () => {
     return prisma.barbershop.findMany();
+  },
+
+  //Available Time Slots
+
+  findByIdWithSchedule: (
+    barbershopId: string,
+  ) => {
+    return prisma.barbershop.findUnique({
+      where: { id: barbershopId },
+      include: {
+        openinghours: true,
+        closedday: true,
+      },
+    });
+  },
+
+  findAppointmentsByDate: (
+    barbershopId: string,
+    date: string,
+  ) => {
+    return prisma.appointment.findMany({
+      where: {
+        barbershopId,
+        status: {
+          in: ['PENDING', 'CONFIRMED'],
+        },
+        date: {
+          gte: new Date(`${date}T00:00:00`),
+          lt: new Date(`${date}T23:59:59`),
+        },
+      },
+    });
+  },
+
+  findServiceById: (serviceId: string) => {
+    return prisma.service.findUnique({
+      where: { id: serviceId },
+    });
+  },
+
+  //Opening Hours and Closed Days management
+  deleteOpeningHours: (barbershopId: string) => {
+    return prisma.openinghours.deleteMany({
+      where: { barbershopId },
+    });
+  },
+
+  createOpeningHours: (
+    barbershopId: string,
+    hours: OpeningHourInput[],
+  ) => {
+    return prisma.openinghours.createMany({
+      data: hours.map((h) => ({
+        ...h,
+        barbershopId,
+      })),
+    });
   },
 };
